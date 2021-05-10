@@ -65,7 +65,7 @@ class HomeWelcome extends React.Component {
 		let repos = gitContent.repos;
 
 		return (
-			<table >
+			<table className={classes.table}>
 				<thead>
 					<tr>
 						<th>Owner</th>
