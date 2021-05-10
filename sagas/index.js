@@ -32,7 +32,7 @@ export default function* root() {
     takeLatest(RoleTypes.GET_ROLES_REQUEST, getRoles),
 
     // git
-     takeLatest(GitTypes.GET_GIT_REPO, getGitRepo),
+    takeLatest(GitTypes.GET_GIT_REPO_REQUEST, getGitRepo),
   ]);
 }
 /* ------------- END: Connect Types To Sagas ------------- */

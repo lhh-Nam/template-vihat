@@ -3,9 +3,7 @@ import Immutable from 'seamless-immutable';
 
 /* ------------- START: Types and Action Creators ------------- */
 const { Types, Creators } = createActions({
-
     updateCurrentLanguage: ['lng'],
-
 });
 export const ConfigTypes = Types;
 export default Creators;

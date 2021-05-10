@@ -93,4 +93,51 @@ export const styles = theme => ({
             padding: 16,
         },
     },
+
+    table: {
+        display: "grid",
+        borderCollapse: "collapse",
+        minWidth: "100%",
+        gridTemplateColumns:
+            "minmax(150px, 1fr)\n    minmax(150px, 1.67fr)\n    minmax(150px, 1.67fr)\n    minmax(150px, 1.67fr)\n    minmax(150px, 3.33fr)\n    minmax(150px, 1.67fr)\n    minmax(150px, 3.33fr)\n    minmax(150px, 1.67fr)",
+
+        "& thead, tbody, tr": { display: "contents" },
+        "& th, td": {
+            padding: "15px",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap"
+        },
+
+        "& th ": {
+            padding: "15px",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+            position: "sticky",
+            top: "0",
+            background: "#6c7ae0",
+            textAlign: "left",
+            fontWeight: "normal",
+            fontSize: "1.1rem",
+            color: "white",
+
+            "th:last-child": { border: "0" },
+        },
+
+        "& td": {
+            padding: "15px",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+            paddingTop: "10px", 
+            paddingBottom: "10px", 
+            color: "#808080"
+        },
+        "tr:nth-child(even) td": { background: "#f8f6ff" }
+    },
+
+
+
+
 });

@@ -5,13 +5,14 @@ import GitAPIs from '../services/APIs/GitAPIs';
 
 const api = new GitAPIs();
 
-export function* getGitRepo() {
+export function* getGitRepo(action) {
+    const { classify } = action
     try {
         const resp = yield call(api.getGitRepo);
         console.log("🚀 ~ resp", resp)
 
-        //yield put(GitActions.getGitRepo(resp.data));
+        yield put(GitActions.getGitRepoSuccess(classify, resp));
     } catch (error) {
-        console.log("🚀 ~ getGitRepo -> error:", error)
+    console.log("🚀 ~ function*getGitRepo ~ error", error)
     }
 }

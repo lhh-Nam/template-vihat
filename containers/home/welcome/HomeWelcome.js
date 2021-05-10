@@ -26,6 +26,7 @@ class HomeWelcome extends React.Component {
 			classify: {
 				user: 'userInfo',
 				role: 'roles',
+				git: 'repos'
 			},
 		};
 	}
@@ -35,7 +36,7 @@ class HomeWelcome extends React.Component {
 		const { classify } = this.state;
 		this.props.getUserInfo(classify.user, { id: getTokenContent('contact_id') });
 		this.props.getRoles(classify.role, { page: 1, size: 15 });
-		this.props.getGitRepo();
+		this.props.getGitRepo(classify.git);
 	}
 
 	_renderUserInfo = () => {
@@ -59,7 +60,44 @@ class HomeWelcome extends React.Component {
 	}
 
 	_renderGitRepo = () => {
-		const { gitRepo } = this.props;
+		const { classify } = this.state;
+		const { classes, gitFetching, gitContent } = this.props;
+		let repos = gitContent.repos;
+
+		return (
+			<table >
+				<thead>
+					<tr>
+						<th>Owner</th>
+						<th>Name's Repo</th>
+						<th>Language</th>
+						<th>Private</th>
+						{/* <th>Size</th>
+						<th>Update at</th> */}
+						<th>Url</th>
+					</tr>
+				</thead>
+				<tbody>
+					{repos ? repos.map((repo, index) => (
+						<tr>
+							<td>{repo.owner.login}</td>
+							<td>{repo.name}</td>
+							<td>{repo.language}</td>
+							<td>{repo.private ? "Yes" : "No"}</td>
+							{/* <td>{repo.size}</td>
+							<td>{repo.updated_at}</td> */}
+							<td>{repo.url}</td>
+						</tr>
+					)) : <tr>
+						<td>Loading...</td>
+						<td>Loading...</td>
+						<td>Loading...</td>
+						<td>Loading...</td>
+						<td>Loading...</td>
+					</tr>}
+				</tbody>
+			</table >
+		)
 	}
 
 	render() {
@@ -71,8 +109,8 @@ class HomeWelcome extends React.Component {
 					<span>Đây là màn hình demo sau khi đăng nhập thành công, bấm đăng xuất để quay lại màn hình đăng nhập.</span>
 					<button onClick={() => this.props.onLogout(true)}>Đăng xuất</button>
 					{this._renderUserInfo()}
-					{this._renderListRole()}
 					{this._renderGitRepo()}
+					{this._renderListRole()}
 				</div>
 			</div>
 		);
@@ -91,7 +129,9 @@ const mapStateToProps = state => {
 		// role
 		roleFetching: state.role.fetching,
 		roleContent: state.role.content,
-		gitRepo: state.git,
+		// git
+		gitFetching: state.git.fetching,
+		gitContent: state.git.content,
 	};
 }
 
@@ -103,7 +143,7 @@ const mapDispatchToProps = dispatch => ({
 	// role
 	getRoles: (classify, params) => dispatch(RoleActions.getRolesRequest(classify, params)),
 	//git 
-	getGitRepo: () => dispatch(GitActions.getGitRepo()),
+	getGitRepo: (classify) => dispatch(GitActions.getGitRepoRequest(classify)),
 });
 
 export default compose(withAuth(), withStyles(styles), connect(mapStateToProps, mapDispatchToProps))(HomeWelcome);
